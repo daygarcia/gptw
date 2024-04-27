@@ -7,6 +7,9 @@ Este projeto é composto de microsserviços responsáveis por ler e salvar no ba
 - [Docker](https://docs.nestjs.com/) 
 - [Docker compose](https://docs.docker.com/compose/)
 
+## Arquivo de exemplo
+
+> O arquivo deve seguir o modelo [example.csv](https://github.com/daygarcia/gptw/blob/main/example.csv). Este pode ser utilizado para os testes.
 
 ## Instalação e uso
 
