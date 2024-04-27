@@ -11,7 +11,7 @@ import { authClientConfig } from '../auth-clients/auth-clients.config';
         name: 'EMPLOYEES_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://localhost:5672'],
+          urls: ['amqp://rabbitmq:5672'],
           queue: 'employees_queue',
           queueOptions: {
             durable: false,

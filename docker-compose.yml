@@ -3,17 +3,53 @@ networks:
     driver: bridge
 
 services:
-  postgres:
+  # postgres:
+  #   image: postgres:13.5
+  #   container_name: postgres
+  #   volumes:
+  #     - ./pgdata:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_DB: postgres
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: root
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - nodejs
+  #   healthcheck:
+  #     test: ["CMD", "pg_isready", "-U", "postgres"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 5
+  #   command: >
+  #     bash -c "sleep 3 && echo 'CREATE DATABASE auth;' | PGPASSWORD=root psql -U postgres -h postgres"
+
+  postgres_auth:
     image: postgres:13.5
-    container_name: postgres
+    container_name: postgres_auth
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata_auth:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-    ports:
-      - "5432:5432"
+    networks:
+      - nodejs
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  postgres_mock:
+    image: postgres:13.5
+    container_name: postgres_mock
+    volumes:
+      - ./pgdata_mock:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     networks:
       - nodejs
     healthcheck:
@@ -45,13 +81,14 @@ services:
       context: ./auth
       dockerfile: Dockerfile
     depends_on:
-      - postgres
+      # - postgres
+      - postgres_auth
       - "rabbitmq"
     environment:
-      DATABASE_URL: postgres://postgres:root@postgres:5432/postgres
+      DATABASE_URL: postgres://postgres:root@postgres_auth:5432/postgres
     ports:
       - "3000:3000"
-    command: npm run start:dev
+    command: npm run start:dev:migrate
     volumes:
       - ./auth:/app
     networks:
@@ -63,7 +100,7 @@ services:
       context: ./file-service
       dockerfile: Dockerfile
     depends_on:
-      - postgres
+      # - postgres
       - auth
       - "rabbitmq"
     ports:
@@ -80,11 +117,12 @@ services:
       context: ./mock
       dockerfile: Dockerfile
     depends_on:
-      - postgres
+      # - postgres
+      - postgres_mock
       - "rabbitmq"
       - auth
     environment:
-      DATABASE_URL: postgres://postgres:root@postgres:5432/postgres
+      DATABASE_URL: postgres://postgres:root@postgres_mock:5432/postgres
     ports:
       - "3002:3002"
     command: npm run start:dev:migrate
