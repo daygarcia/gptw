@@ -1,0 +1,25 @@
+name;age;department;role;hiringDate;salary
+Gerson;38;Qualidade;Inspeção de qualidade aduaneira;07/08/2009;7500,19
+Ana;42;Vendas;Gerente de vendas;15/03/2010;9500,35
+Carlos;30;TI;Desenvolvedor de software;20/11/2012;8000
+Maria;28;RH;Analista de recursos humanos;05/06/2013;7000,22
+João;35;Produção;Supervisor de linha de produção;10/02/2011;7200
+Laura;29;Marketing;Especialista em mídias sociais;25/09/2014;6800
+Pedro;33;Logística;Coordenador de logística;18/07/2010;7800,55
+Sofia;31;Financeiro;Analista financeiro;12/04/2013;7100,39
+André;37;Engenharia;Engenheiro de projetos;08/01/2009;8200,2
+Isabela;26;Design;Designer gráfico;30/05/2015;6500,13
+Rodrigo;34;Compras;Gerente de compras;22/03/2011;9000,99
+Luísa;27;Marketing;Analista de marketing;14/09/2013;6900,88
+Marcelo;39;Vendas;Representante de vendas;03/07/2008;7300
+Fernanda;32;RH;Coordenadora de RH;28/12/2010;7600,77
+Ricardo;36;TI;Arquiteto de soluções;16/05/2009;8400
+Camila;30;Produção;Operadora de máquinas;21/08/2012;7100,44
+Bruno;31;Logística;Analista de cadeia de suprimentos;09/04/2013;7000,33
+Letícia;28;Financeiro;Contadora;05/02/2014;6700,44
+Rafael;33;Engenharia;Engenheiro de qualidade;18/11/2010;8100
+Júlia;29;Design;Ilustradora;25/06/2014;6400,34
+Eduardo;34;Compras;Analista de suprimentos;22/02/2011;8800,23
+Patrícia;35;Marketing;Gerente de marketing;10/09/2011;9200
+Renato;37;Vendas;Supervisor de vendas;08/07/2009;7400,12
+Vanessa;26;RH;Recrutadora;30/05/2015;9500
