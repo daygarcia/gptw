@@ -3,7 +3,6 @@ import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '../guards/auth.guard';
-import { ModuleTokenFactory } from '@nestjs/core/injector/module-token-factory';
 
 @Controller('files')
 @ApiBearerAuth()
