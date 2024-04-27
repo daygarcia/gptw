@@ -31,7 +31,6 @@ async function bootstrap() {
     .setTitle('File Service API')
     .setDescription('File service for uploading and send data files')
     .setVersion('1.0')
-    .addTag('file')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -36,7 +36,6 @@ async function bootstrap() {
     .setTitle('Mock API')
     .setDescription('Mock data for testing purposes')
     .setVersion('1.0')
-    .addTag('mock')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

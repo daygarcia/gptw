@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator, InternalServerErrorException, HttpStatus, UseGuards } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '../guards/auth.guard';
+import { ModuleTokenFactory } from '@nestjs/core/injector/module-token-factory';
 
 @Controller('files')
+@ApiBearerAuth()
 export class FilesController {
   constructor(private readonly filesService: FilesService) { }
 
@@ -24,6 +26,7 @@ export class FilesController {
     },
   })
   @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth()
   async uploadFile(@UploadedFile(new ParseFilePipe({
     validators: [
       new MaxFileSizeValidator({ maxSize: 10000 }),
