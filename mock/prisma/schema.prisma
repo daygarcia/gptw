@@ -14,11 +14,11 @@ datasource db {
 }
 
 model Employee {
-  id                   Int      @id @default(autoincrement())
-  nome                 String
-  idade                Int
-  departamento         String
-  funcao               String
-  data_de_contratacao  DateTime
-  salario              Float
+  id                  Int      @id @default(autoincrement())
+  name                String
+  age                 Int
+  department          String
+  role                String
+  hiringDate          DateTime
+  salary              Float
 }
