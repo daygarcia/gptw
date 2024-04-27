@@ -10,8 +10,11 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
+interface Payload {
+    token: string;
+}
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService) { }
@@ -28,8 +31,8 @@ export class AuthController {
         return req.user;
     }
 
-    @MessagePattern({ cmd: 'validate-token' })
-    validateToken(token: string) {
-        return this.authService.validateToken(token);
+    @MessagePattern({ role: 'auth', cmd: 'validate-token' })
+    validateToken(@Payload() data: Payload) {
+        return this.authService.validateToken(data.token);
     }
 }

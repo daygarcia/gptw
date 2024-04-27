@@ -31,9 +31,12 @@ export class AuthService {
     try {
       const validated = await this.jwtService.verifyAsync(token);
 
-      return this.client.send({ cmd: 'validate-token' }, validated);
+      // return this.client.send({ cmd: 'validated-token' }, validated);
+
+      return true;
 
     } catch {
+      return false;
       throw new UnauthorizedException();
     }
   }

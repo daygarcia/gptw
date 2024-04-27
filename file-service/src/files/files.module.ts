@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FilesController } from './files.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { authClientConfig } from '../auth-clients/auth-clients.config';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           },
         },
       },
+      authClientConfig
     ]),
   ],
   controllers: [FilesController],
