@@ -11,6 +11,7 @@ Este projeto é composto de microsserviços responsáveis por ler e salvar no ba
 
 > O arquivo deve seguir o modelo [example.csv](https://github.com/daygarcia/gptw/blob/main/example.csv). Este pode ser utilizado para os testes.
 
+
 ## Instalação e uso
 
 Abra um terminal e rode o seguinte comando:
@@ -20,6 +21,7 @@ Abra um terminal e rode o seguinte comando:
 ```
 
 O comando iniciará os três microsserviços de uma vez.
+
 
 ## Documentação
 
@@ -75,6 +77,7 @@ curl -X GET http://localhost:3000/auth/profile
    -H 'Authorization: Bearer eyJhbGciOiJIU...'
 ```
 
+
 ## Upload de arquivo
 
 Você pode subir um arquivo utilizando 
@@ -97,6 +100,7 @@ Exemplo de retorno de sucesso:
 	"errorsArray": []
 }
 ```
+
 
 ### Para recuperar os dados que foram processados, basta utilizar o microsserviço responsável
 
