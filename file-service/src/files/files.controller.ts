@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator, InternalServerErrorException, HttpStatus } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
@@ -10,13 +10,27 @@ export class FilesController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile(new ParseFilePipe({
+  async uploadFile(@UploadedFile(new ParseFilePipe({
     validators: [
       new MaxFileSizeValidator({ maxSize: 10000 }),
       new FileTypeValidator({ fileType: 'text/csv' }),
     ],
   })) file: Express.Multer.File) {
-    return this.filesService.uploadFile(file);
+    try {
+      let response: any = await this.filesService.uploadFile(file)
+      if (!response.error) {
+        response = await this.filesService.process(response.data);
+      }
+      return {
+        error: false,
+        statusCode: response?.status || HttpStatus.OK,
+        message: response?.message || "file uploaded successfully",
+        data: response?.data || [],
+        errorsArray: response?.errorsArray || []
+      };
+    } catch (e) {
+      throw new InternalServerErrorException(e?.message || "Internal Server Error")
+    }
   }
 
   @Post()

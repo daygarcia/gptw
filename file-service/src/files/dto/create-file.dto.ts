@@ -1,4 +1,4 @@
-import { IsDate, IsDecimal, IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsDecimal, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateFileDto {
   @IsString()
@@ -21,7 +21,7 @@ export class CreateFileDto {
   @IsNotEmpty()
   hiringDate: Date;
 
-  @IsDecimal()
+  @IsNumber()
   @IsNotEmpty()
   salary: number;
 }
