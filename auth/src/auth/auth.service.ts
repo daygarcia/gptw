@@ -1,11 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject('USERS_SERVICE') private client: ClientProxy,
     private usersService: UsersService,
     private jwtService: JwtService
   ) { }
@@ -24,4 +26,16 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
+
+  async validateToken(token: string): Promise<any> {
+    try {
+      const validated = await this.jwtService.verifyAsync(token);
+
+      return this.client.send({ cmd: 'validate-token' }, validated);
+
+    } catch {
+      throw new UnauthorizedException();
+    }
+  }
+
 }

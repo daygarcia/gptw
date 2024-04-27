@@ -2,8 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma.service';
-// This should be a real class/interface representing a user entity
-export type User = any;
+
+export type User = {
+  id: string;
+  userId?: string;
+  username: string;
+  name: string;
+  password: string;
+};
 
 @Injectable()
 export class UsersService {

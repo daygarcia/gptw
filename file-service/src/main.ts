@@ -10,13 +10,22 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://rabbitmq:5672'],
+      urls: ['amqp://localhost:5672'],
       queue: 'file_service_queue',
       queueOptions: {
         durable: false,
       },
     },
   });
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.TCP,
+    options: {
+      host: 'localhost',
+      port: 4010,
+    },
+  });
+
 
   const config = new DocumentBuilder()
     .setTitle('File Service API')

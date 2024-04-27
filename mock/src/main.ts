@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { Transport } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,10 +9,10 @@ async function bootstrap() {
   const queues = ['employees_queue'];
 
   for (const queue of queues) {
-    await app.connectMicroservice({
+    await app.connectMicroservice<MicroserviceOptions>({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://rabbitmq:5672'],
+        urls: ['amqp://localhost:5672'],
         queue: queue,
         noAck: false,
         queueOptions: {
@@ -21,6 +21,14 @@ async function bootstrap() {
       },
     });
   }
+
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.TCP,
+    options: {
+      host: 'localhost',
+      port: 4020,
+    },
+  });
 
   await app.startAllMicroservices();
 

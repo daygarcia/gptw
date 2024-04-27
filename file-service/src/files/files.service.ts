@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateFileDto } from './dto/create-file.dto';
-import { UpdateFileDto } from './dto/update-file.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import * as csv from 'csv-parse';
