@@ -29,7 +29,7 @@ export class AuthService {
 
   async validateToken(token: string): Promise<any> {
     try {
-      const validated = await this.jwtService.verifyAsync(token);
+      await this.jwtService.verifyAsync(token);
 
       // return this.client.send({ cmd: 'validated-token' }, validated);
 
