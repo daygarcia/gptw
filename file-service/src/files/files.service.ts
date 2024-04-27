@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import * as csv from 'csv-parse';
 import { COLUMNS } from './consts/files.const';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class FilesService {
+
+  constructor(@Inject('EMPLOYEES_SERVICE') private client: ClientProxy) { }
+
 
   async uploadFile(file: Express.Multer.File) {
 
@@ -68,7 +72,25 @@ export class FilesService {
   }
 
   async process(createFileDtos: CreateFileDto[]) {
-    return 'This action adds a new file';
+    try {
+      this.client.emit('upload_employee', {
+        id: `File-${Math.random() * 100}}`,
+        data: {
+          employees: createFileDtos,
+        },
+      });
+
+      return {
+        message: 'File sent to mock (employees) service',
+      };
+    } catch (error) {
+      return {
+        error: true,
+        status: 500,
+        message: 'Error sending file to mock (employees) service',
+        errorsArray: [error.message],
+      };
+    }
   }
 
   async validateFileRow(rowData) {

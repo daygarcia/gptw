@@ -13,7 +13,7 @@ async function bootstrap() {
       urls: ['amqp://localhost:5672'],
       queue: 'file_service_queue',
       queueOptions: {
-        durable: false
+        durable: false,
       },
     },
   });
