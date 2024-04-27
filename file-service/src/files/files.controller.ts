@@ -4,8 +4,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '../guards/auth.guard';
 
-@Controller('files')
 @ApiBearerAuth()
+@Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) { }
 
