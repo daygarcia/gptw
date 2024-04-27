@@ -12,14 +12,6 @@ export class EmployeesController {
     return this.employeesService.create(createEmployeeDto);
   }
 
-  /* 
-  
-  skip?: number;
-    take?: number;
-    cursor?: Prisma.EmployeeWhereUniqueInput;
-    where?: Prisma.EmployeeWhereInput;
-    orderBy?: Prisma.EmployeeOrderByWithRelationInput;*/
-
   @Get()
   findAll(
     @Param('skip') skip: number,

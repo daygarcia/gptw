@@ -18,10 +18,10 @@ export class FilesService {
     const csvContent = file.buffer
     const parsedData: any = await new Promise((resolve, reject) => {
       csv.parse(csvContent, {
-        columns: true, // Define a primeira linha como cabeçalho
-        trim: true, // Remove espaços em branco desnecessários
-        delimiter: ';', // Define o delimitador como vírgula
-        skip_empty_lines: true, // Pula linhas vazias
+        columns: true,
+        trim: true,
+        delimiter: ';',
+        skip_empty_lines: true,
         cast: function (value, context) {
           if (context.header) {
             return value;

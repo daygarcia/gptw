@@ -3,6 +3,8 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { PrismaService } from '../prisma.service';
 import { Employee, Prisma } from '@prisma/client';
+import { OnEvent } from '@nestjs/event-emitter';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class EmployeesService {
@@ -51,4 +53,13 @@ export class EmployeesService {
       }
     );
   }
+
+  @OnEvent('upload_employee')
+  async handleUploadEmployeeEvent(data: any) {
+    for (const employee of data) {
+      const dto = plainToInstance(CreateEmployeeDto, employee);
+      await this.create(dto);
+    }
+  }
+
 }
