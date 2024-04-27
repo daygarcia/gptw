@@ -20,6 +20,4 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: CreateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
-
-
 }

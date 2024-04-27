@@ -14,13 +14,15 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     const saltOrRounds = 10;
-    const user = this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         username: createUserDto.username,
         password: await bcrypt.hash(createUserDto.password, saltOrRounds),
         name: createUserDto.name,
       }
     })
+
+    delete user.password
 
     return user
   }
